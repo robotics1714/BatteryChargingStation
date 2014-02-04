@@ -19,6 +19,7 @@ local.properties
 #ignores I added
 *.config
 *.vbproj
+*.sln
 /My Project
 
 # External tool builders
