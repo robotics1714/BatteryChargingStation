@@ -4,6 +4,7 @@ Imports Pololu.Usc
 Public Class Form1
     Dim controller As Usc 'Represents the Pololu controller
     Dim inputs() As Pololu.Usc.ServoStatus 'Represents each port on the Pololu controller
+    Dim chargerOn(6) As Boolean 'Holds whether the charger are on or off
 
     Private Const CONVERSION_VAL As Integer = 201
     Private Const CHARGE_TIME As Integer = 270
@@ -16,6 +17,11 @@ Public Class Form1
             MsgBox(exception.Message)
             Close()
         End Try
+
+        'Turn all of the chargers of
+        For i As Integer = 0 To 5
+            chargerOn(i) = False
+        Next
     End Sub
 
     Function ConnectToDevice() As Usc
@@ -67,6 +73,67 @@ Public Class Form1
             values(i) = Math.Round(ratio * 7.5, 1)
         Next
 
+        'If the batteries are 100% charged, set charged on to false otherwise set it to true
+        For i As Integer = 0 To 5
+            'Check to see if the current charger is on so the program doesn't turn on a charger
+            'that should be off
+            If percentCharge(i) < 1 And chargerOn(i) = True Then
+                chargerOn(i) = True
+            Else
+                chargerOn(i) = False
+            End If
+        Next
+
+        'Turn the chargers on or off
+        If chargerOn(0) = True Then 'Charger 1
+            controller.setTarget(6, 1500 * 4)
+            OnOffLbl1.Text = "On"
+        Else
+            controller.setTarget(6, 0)
+            OnOffLbl1.Text = "Off"
+            BatteryLbl1.Text = "0"
+        End If
+        If chargerOn(1) = True Then 'Charger 2
+            controller.setTarget(7, 1500 * 4)
+            OnOffLbl2.Text = "On"
+        Else
+            controller.setTarget(7, 0)
+            OnOffLbl2.Text = "Off"
+            BatteryLbl2.Text = "0"
+        End If
+        If chargerOn(2) = True Then 'Charger 3
+            controller.setTarget(8, 1500 * 4)
+            OnOffLbl3.Text = "On"
+        Else
+            controller.setTarget(8, 0)
+            OnOffLbl3.Text = "Off"
+            BatteryLbl3.Text = "0"
+        End If
+        If chargerOn(3) = True Then 'Charger 4
+            controller.setTarget(9, 1500 * 4)
+            OnOffLbl4.Text = "On"
+        Else
+            controller.setTarget(9, 0)
+            OnOffLbl4.Text = "Off"
+            BatteryLbl4.Text = "0"
+        End If
+        If chargerOn(4) = True Then 'Charger 5
+            controller.setTarget(10, 1500 * 4)
+            OnOffLbl5.Text = "On"
+        Else
+            controller.setTarget(10, 0)
+            OnOffLbl5.Text = "Off"
+            BatteryLbl5.Text = "0"
+        End If
+        If chargerOn(5) = True Then 'Charger 6
+            controller.setTarget(11, 1500 * 4)
+            OnOffLbl6.Text = "On"
+        Else
+            controller.setTarget(11, 0)
+            OnOffLbl6.Text = "Off"
+            BatteryLbl6.Text = "0"
+        End If
+
         'Set the values in the charger progress bars
         Charger1.Value = CInt(percentCharge(0) * 100)
         Charger2.Value = CInt(percentCharge(1) * 100)
@@ -102,32 +169,121 @@ Public Class Form1
 
     End Sub
 
-    'When the on buttons are pressed, ask for the battery number
-    Private Sub OnBtn1_Click(sender As Object, e As EventArgs) Handles OnBtn1.Click
-        'Keep asking for the battery number until we get valid input
-        Dim batteryNum As Integer = 0
-        Dim validInput As Boolean = False
-        While validInput = False
-            Try
-                'Get the battery number from the user
-                Dim temp As String = InputBox("What battery is this?", "Which Battery?", "0")
-                'If the user hit cancel, exit the program
-                If temp.Length = 0 Then
-                    Return
-                End If
+    Private Function GetBatteryNum() As String
+        'Ask for a number and don't return anything unless the value is a number or the user hit cancel
+        Dim input As String = "invalid" 'Set the input to an invalid value 
 
-                'Convert the string from the input box to a int
-                batteryNum = CInt(temp)
-
-                'If the input was valid, exit the loop
-                validInput = True
-            Catch ex As Exception
-                'If the input was invalid, tell the user so
+        'Go through the loop until something is returned from the function
+        While True
+            'Get the battery number from the user
+            input = InputBox("What battery is this?", "Which Battery?", "0")
+            'If the user hit cancel or if the input is valid, return input
+            If input.Length = 0 Or IsNumeric(input) Then
+                Return input
+            Else
+                'If the input was not valid, say so
                 MsgBox("Invalid Input")
-            End Try
+            End If
+
         End While
 
-        'Change the battery number to the input
-        BatteryLbl1.Text = CStr(batteryNum)
+        Return "0"
+    End Function
+
+    'When the on buttons are pressed, ask for the battery number
+    Private Sub OnBtn1_Click(sender As Object, e As EventArgs) Handles OnBtn1.Click
+        Dim input As String = GetBatteryNum()
+
+        'Change the battery number if the user did not hit cancel and turn on the charger
+        If input.Length <> 0 Then
+            BatteryLbl1.Text = input
+            chargerOn(0) = True
+        End If
+    End Sub
+
+    Private Sub OnBtn2_Click(sender As Object, e As EventArgs) Handles OnBtn2.Click
+        Dim input As String = GetBatteryNum()
+
+        'Change the battery number if the user did not hit cancel and turn on the charger
+        If input.Length <> 0 Then
+            BatteryLbl2.Text = input
+            chargerOn(1) = True
+        End If
+    End Sub
+
+    Private Sub OnBtn3_Click(sender As Object, e As EventArgs) Handles OnBtn3.Click
+        Dim input As String = GetBatteryNum()
+
+        'Change the battery number if the user did not hit cancel and turn on the charger
+        If input.Length <> 0 Then
+            BatteryLbl3.Text = input
+            chargerOn(2) = True
+        End If
+    End Sub
+
+    Private Sub OnBtn4_Click(sender As Object, e As EventArgs) Handles OnBtn4.Click
+        Dim input As String = GetBatteryNum()
+
+        'Change the battery number if the user did not hit cancel and turn on the charger
+        If input.Length <> 0 Then
+            BatteryLbl4.Text = input
+            chargerOn(3) = True
+        End If
+    End Sub
+
+    Private Sub OnBtn5_Click(sender As Object, e As EventArgs) Handles OnBtn5.Click
+        Dim input As String = GetBatteryNum()
+
+        'Change the battery number if the user did not hit cancel and turn on the charger
+        If input.Length <> 0 Then
+            BatteryLbl5.Text = input
+            chargerOn(4) = True
+        End If
+    End Sub
+
+    Private Sub OnBtn6_Click(sender As Object, e As EventArgs) Handles OnBtn6.Click
+        Dim input As String = GetBatteryNum()
+
+        'Change the battery number if the user did not hit cancel and turn on the charger
+        If input.Length <> 0 Then
+            BatteryLbl6.Text = input
+            chargerOn(5) = True
+        End If
+    End Sub
+
+    Private Sub OffBtn1_Click(sender As Object, e As EventArgs) Handles OffBtn1.Click
+        'Turn off the charger
+        BatteryLbl1.Text = "0"
+        chargerOn(0) = False
+    End Sub
+
+    Private Sub OffBtn2_Click(sender As Object, e As EventArgs) Handles OffBtn2.Click
+        'Turn off the charger
+        BatteryLbl2.Text = "0"
+        chargerOn(1) = False
+    End Sub
+
+    Private Sub OffBtn3_Click(sender As Object, e As EventArgs) Handles OffBtn3.Click
+        'Turn off the charger
+        BatteryLbl3.Text = "0"
+        chargerOn(2) = False
+    End Sub
+
+    Private Sub OffBtn4_Click(sender As Object, e As EventArgs) Handles OffBtn4.Click
+        'Turn off the charger
+        BatteryLbl4.Text = "0"
+        chargerOn(3) = False
+    End Sub
+
+    Private Sub OffBtn5_Click(sender As Object, e As EventArgs) Handles OffBtn5.Click
+        'Turn off the charger
+        BatteryLbl5.Text = "0"
+        chargerOn(4) = False
+    End Sub
+
+    Private Sub OffBtn6_Click(sender As Object, e As EventArgs) Handles OffBtn6.Click
+        'Turn off the charger
+        BatteryLbl6.Text = "0"
+        chargerOn(5) = False
     End Sub
 End Class

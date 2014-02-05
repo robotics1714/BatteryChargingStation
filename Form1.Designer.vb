@@ -75,6 +75,12 @@ Partial Class Form1
         Me.OffBtn5 = New System.Windows.Forms.Button()
         Me.OnBtn6 = New System.Windows.Forms.Button()
         Me.OffBtn6 = New System.Windows.Forms.Button()
+        Me.OnOffLbl1 = New System.Windows.Forms.Label()
+        Me.OnOffLbl2 = New System.Windows.Forms.Label()
+        Me.OnOffLbl3 = New System.Windows.Forms.Label()
+        Me.OnOffLbl4 = New System.Windows.Forms.Label()
+        Me.OnOffLbl5 = New System.Windows.Forms.Label()
+        Me.OnOffLbl6 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Charger1
@@ -182,7 +188,7 @@ Partial Class Form1
         '
         Me.CurrentLbl1.AutoSize = True
         Me.CurrentLbl1.ForeColor = System.Drawing.Color.Purple
-        Me.CurrentLbl1.Location = New System.Drawing.Point(198, 39)
+        Me.CurrentLbl1.Location = New System.Drawing.Point(228, 39)
         Me.CurrentLbl1.Name = "CurrentLbl1"
         Me.CurrentLbl1.Size = New System.Drawing.Size(23, 13)
         Me.CurrentLbl1.TabIndex = 14
@@ -192,7 +198,7 @@ Partial Class Form1
         '
         Me.CurrentLbl2.AutoSize = True
         Me.CurrentLbl2.ForeColor = System.Drawing.Color.Purple
-        Me.CurrentLbl2.Location = New System.Drawing.Point(198, 85)
+        Me.CurrentLbl2.Location = New System.Drawing.Point(228, 85)
         Me.CurrentLbl2.Name = "CurrentLbl2"
         Me.CurrentLbl2.Size = New System.Drawing.Size(23, 13)
         Me.CurrentLbl2.TabIndex = 15
@@ -202,7 +208,7 @@ Partial Class Form1
         '
         Me.CurrentLbl3.AutoSize = True
         Me.CurrentLbl3.ForeColor = System.Drawing.Color.Purple
-        Me.CurrentLbl3.Location = New System.Drawing.Point(198, 131)
+        Me.CurrentLbl3.Location = New System.Drawing.Point(228, 131)
         Me.CurrentLbl3.Name = "CurrentLbl3"
         Me.CurrentLbl3.Size = New System.Drawing.Size(23, 13)
         Me.CurrentLbl3.TabIndex = 16
@@ -212,7 +218,7 @@ Partial Class Form1
         '
         Me.CurrentLbl4.AutoSize = True
         Me.CurrentLbl4.ForeColor = System.Drawing.Color.Purple
-        Me.CurrentLbl4.Location = New System.Drawing.Point(198, 177)
+        Me.CurrentLbl4.Location = New System.Drawing.Point(228, 177)
         Me.CurrentLbl4.Name = "CurrentLbl4"
         Me.CurrentLbl4.Size = New System.Drawing.Size(23, 13)
         Me.CurrentLbl4.TabIndex = 17
@@ -222,7 +228,7 @@ Partial Class Form1
         '
         Me.CurrentLbl5.AutoSize = True
         Me.CurrentLbl5.ForeColor = System.Drawing.Color.Purple
-        Me.CurrentLbl5.Location = New System.Drawing.Point(198, 223)
+        Me.CurrentLbl5.Location = New System.Drawing.Point(228, 223)
         Me.CurrentLbl5.Name = "CurrentLbl5"
         Me.CurrentLbl5.Size = New System.Drawing.Size(23, 13)
         Me.CurrentLbl5.TabIndex = 18
@@ -232,7 +238,7 @@ Partial Class Form1
         '
         Me.CurrentLbl6.AutoSize = True
         Me.CurrentLbl6.ForeColor = System.Drawing.Color.Purple
-        Me.CurrentLbl6.Location = New System.Drawing.Point(198, 269)
+        Me.CurrentLbl6.Location = New System.Drawing.Point(228, 269)
         Me.CurrentLbl6.Name = "CurrentLbl6"
         Me.CurrentLbl6.Size = New System.Drawing.Size(23, 13)
         Me.CurrentLbl6.TabIndex = 19
@@ -528,11 +534,77 @@ Partial Class Form1
         Me.OffBtn6.Text = "Turn Off"
         Me.OffBtn6.UseVisualStyleBackColor = True
         '
+        'OnOffLbl1
+        '
+        Me.OnOffLbl1.AutoSize = True
+        Me.OnOffLbl1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OnOffLbl1.Location = New System.Drawing.Point(198, 39)
+        Me.OnOffLbl1.Name = "OnOffLbl1"
+        Me.OnOffLbl1.Size = New System.Drawing.Size(24, 13)
+        Me.OnOffLbl1.TabIndex = 52
+        Me.OnOffLbl1.Text = "Off"
+        '
+        'OnOffLbl2
+        '
+        Me.OnOffLbl2.AutoSize = True
+        Me.OnOffLbl2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OnOffLbl2.Location = New System.Drawing.Point(198, 85)
+        Me.OnOffLbl2.Name = "OnOffLbl2"
+        Me.OnOffLbl2.Size = New System.Drawing.Size(24, 13)
+        Me.OnOffLbl2.TabIndex = 53
+        Me.OnOffLbl2.Text = "Off"
+        '
+        'OnOffLbl3
+        '
+        Me.OnOffLbl3.AutoSize = True
+        Me.OnOffLbl3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OnOffLbl3.Location = New System.Drawing.Point(198, 131)
+        Me.OnOffLbl3.Name = "OnOffLbl3"
+        Me.OnOffLbl3.Size = New System.Drawing.Size(24, 13)
+        Me.OnOffLbl3.TabIndex = 54
+        Me.OnOffLbl3.Text = "Off"
+        '
+        'OnOffLbl4
+        '
+        Me.OnOffLbl4.AutoSize = True
+        Me.OnOffLbl4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OnOffLbl4.Location = New System.Drawing.Point(198, 177)
+        Me.OnOffLbl4.Name = "OnOffLbl4"
+        Me.OnOffLbl4.Size = New System.Drawing.Size(24, 13)
+        Me.OnOffLbl4.TabIndex = 55
+        Me.OnOffLbl4.Text = "Off"
+        '
+        'OnOffLbl5
+        '
+        Me.OnOffLbl5.AutoSize = True
+        Me.OnOffLbl5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OnOffLbl5.Location = New System.Drawing.Point(198, 223)
+        Me.OnOffLbl5.Name = "OnOffLbl5"
+        Me.OnOffLbl5.Size = New System.Drawing.Size(24, 13)
+        Me.OnOffLbl5.TabIndex = 56
+        Me.OnOffLbl5.Text = "Off"
+        '
+        'OnOffLbl6
+        '
+        Me.OnOffLbl6.AutoSize = True
+        Me.OnOffLbl6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OnOffLbl6.Location = New System.Drawing.Point(198, 269)
+        Me.OnOffLbl6.Name = "OnOffLbl6"
+        Me.OnOffLbl6.Size = New System.Drawing.Size(24, 13)
+        Me.OnOffLbl6.TabIndex = 57
+        Me.OnOffLbl6.Text = "Off"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(785, 324)
+        Me.Controls.Add(Me.OnOffLbl6)
+        Me.Controls.Add(Me.OnOffLbl5)
+        Me.Controls.Add(Me.OnOffLbl4)
+        Me.Controls.Add(Me.OnOffLbl3)
+        Me.Controls.Add(Me.OnOffLbl2)
+        Me.Controls.Add(Me.OnOffLbl1)
         Me.Controls.Add(Me.OffBtn6)
         Me.Controls.Add(Me.OnBtn6)
         Me.Controls.Add(Me.OffBtn5)
@@ -641,5 +713,11 @@ Partial Class Form1
     Friend WithEvents OffBtn5 As System.Windows.Forms.Button
     Friend WithEvents OnBtn6 As System.Windows.Forms.Button
     Friend WithEvents OffBtn6 As System.Windows.Forms.Button
+    Friend WithEvents OnOffLbl1 As System.Windows.Forms.Label
+    Friend WithEvents OnOffLbl2 As System.Windows.Forms.Label
+    Friend WithEvents OnOffLbl3 As System.Windows.Forms.Label
+    Friend WithEvents OnOffLbl4 As System.Windows.Forms.Label
+    Friend WithEvents OnOffLbl5 As System.Windows.Forms.Label
+    Friend WithEvents OnOffLbl6 As System.Windows.Forms.Label
 
 End Class
