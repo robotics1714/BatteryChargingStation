@@ -1,13 +1,21 @@
 ﻿Imports Pololu.UsbWrapper
 Imports Pololu.Usc
+Imports System.IO
 
 Public Class Form1
     Dim controller As Usc 'Represents the Pololu controller
     Dim inputs() As Pololu.Usc.ServoStatus 'Represents each port on the Pololu controller
-    Dim chargerOn(6) As Boolean 'Holds whether the charger are on or off
+    'Variables that will hold the inputs from the chargers
+    Dim values(6) As Double
+    'The sum of these to should be 1 because they are opposite
+    Dim percentCharge(6) As Double
+    Dim percentEmpty(6) As Double
+    'Holds whether the charger are on or off
+    Dim chargerOn(6) As Boolean
 
     Private Const CONVERSION_VAL As Integer = 201
     Private Const CHARGE_TIME As Integer = 270
+    Private Const FILE_PATH As String = "log.txt"
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Connect to the Pololu Device
@@ -17,6 +25,11 @@ Public Class Form1
             MsgBox(exception.Message)
             Close()
         End Try
+
+        'Create the log file we will be writing to if it is not already there
+        If File.Exists(FILE_PATH) = False Then
+            File.Create(FILE_PATH)
+        End If
 
         'Turn all of the chargers of
         For i As Integer = 0 To 5
@@ -39,12 +52,6 @@ Public Class Form1
 
     'Update the charger progress bars
     Private Sub UpdateTimer_Tick(sender As Object, e As EventArgs) Handles UpdateTimer.Tick
-        'Variables that will hold the inputs from the chargers
-        Dim values(6) As Double
-        'The sum of these to should be 1 because they are opposite
-        Dim percentCharge(6) As Double
-        Dim percentEmpty(6) As Double
-
         'Calculate the voltage from the inputs
         controller.getVariables(inputs)
         For i As Integer = 0 To 5
@@ -285,5 +292,64 @@ Public Class Form1
         'Turn off the charger
         BatteryLbl6.Text = "0"
         chargerOn(5) = False
+    End Sub
+
+    Private Sub fileWriteTimer_Tick(sender As Object, e As EventArgs) Handles fileWriteTimer.Tick
+        'Put the battery data in the a string
+        Dim data As String = ""
+
+        'If atleast 1 charger is on, write the time
+        For i As Integer = 0 To 5
+            If chargerOn(i) = True Then
+                data += Date.Now().ToString("ddMMMyyyy") + DateTime.Now.ToLongTimeString() + vbCrLf
+                Exit For
+            End If
+        Next
+
+        'Get data from charger 1
+        If chargerOn(0) = True Then
+            data += "Charger 1 "
+            data += "Battery " + BatteryLbl1.Text + " "
+            data += CStr(values(0)) + "A "
+            data += CStr(CInt(percentCharge(0) * 100)) + "% percent charged" + vbCrLf
+        End If
+        'Get data from charger 2
+        If chargerOn(1) = True Then
+            data += "Charger 2 "
+            data += "Battery " + BatteryLbl2.Text + " "
+            data += CStr(values(1)) + "A "
+            data += CStr(CInt(percentCharge(1) * 100)) + "% percent charged" + vbCrLf
+        End If
+        'Get data from charger 3
+        If chargerOn(2) = True Then
+            data += "Charger 3 "
+            data += "Battery " + BatteryLbl3.Text + " "
+            data += CStr(values(2)) + "A "
+            data += CStr(CInt(percentCharge(2) * 100)) + "% percent charged" + vbCrLf
+        End If
+        'Get data from charger 4
+        If chargerOn(3) = True Then
+            data += "Charger 4 "
+            data += "Battery " + BatteryLbl4.Text + " "
+            data += CStr(values(3)) + "A "
+            data += CStr(CInt(percentCharge(3) * 100)) + "% percent charged" + vbCrLf
+        End If
+        'Get data from charger 5
+        If chargerOn(4) = True Then
+            data += "Charger 5 "
+            data += "Battery " + BatteryLbl5.Text + " "
+            data += CStr(values(4)) + "A "
+            data += CStr(CInt(percentCharge(4) * 100)) + "% percent charged" + vbCrLf
+        End If
+        'Get data from charger 6
+        If chargerOn(5) = True Then
+            data += "Charger 6 "
+            data += "Battery " + BatteryLbl6.Text + " "
+            data += CStr(values(5)) + "A "
+            data += CStr(CInt(percentCharge(5) * 100)) + "% percent charged" + vbCrLf
+        End If
+
+        'Write the data to a file
+        My.Computer.FileSystem.WriteAllText(FILE_PATH, data, True)
     End Sub
 End Class

@@ -81,6 +81,7 @@ Partial Class Form1
         Me.OnOffLbl4 = New System.Windows.Forms.Label()
         Me.OnOffLbl5 = New System.Windows.Forms.Label()
         Me.OnOffLbl6 = New System.Windows.Forms.Label()
+        Me.fileWriteTimer = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Charger1
@@ -594,6 +595,11 @@ Partial Class Form1
         Me.OnOffLbl6.TabIndex = 57
         Me.OnOffLbl6.Text = "Off"
         '
+        'fileWriteTimer
+        '
+        Me.fileWriteTimer.Enabled = True
+        Me.fileWriteTimer.Interval = 60000
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -719,5 +725,6 @@ Partial Class Form1
     Friend WithEvents OnOffLbl4 As System.Windows.Forms.Label
     Friend WithEvents OnOffLbl5 As System.Windows.Forms.Label
     Friend WithEvents OnOffLbl6 As System.Windows.Forms.Label
+    Friend WithEvents fileWriteTimer As System.Windows.Forms.Timer
 
 End Class
